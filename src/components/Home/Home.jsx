@@ -3,7 +3,7 @@ import Dash1 from '../../Dash1';
 import Dash from '../../Dash';
 import {useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../../redux/action';
-import { getUsers } from '../../App.js';
+import { getUsers } from '../../services/users';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
