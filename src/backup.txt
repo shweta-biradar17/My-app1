@@ -1,0 +1,111 @@
+import React from 'react';
+import Refresh from './Refresh'
+import './App.css'
+import {Route, Switch, NavLink} from "react-router-dom";
+import Add from './Add';
+import Update from './Update';
+import Delete from './Delete';
+
+//import { getUsers} from './services/users';
+
+async function getUsers() {
+    const userResponse = await fetch('http://localhost:4300/users')
+    const users = await userResponse.json();
+    return users;
+
+}
+
+export async function createUser(data) {
+    console.log(data);
+    const response = await fetch('http://localhost:4300/createUser', {
+    
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'content-type': "application/json"
+            }
+        });
+            const result = await response.json();
+            return result;
+}
+
+export async function deleteUser(id) {
+  
+    const response = await fetch('http://localhost:4300/deleteUser'+"?id=" + id,{
+    
+            method: 'DELETE',
+            headers: {
+                'content-type': "application/json"
+            }
+        });
+            const result = await response.json();
+            return result;
+}
+
+export async function updateUser(data, id) {
+    console.log(data);
+    const response = await fetch('http://localhost:4300/updateUser'+"?id=" + id, {
+    
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'content-type': "application/json"
+            }
+        });
+            const result = await response.json();
+            return result;
+}
+
+
+const App = (props) => {
+    const [users, setUsers] = React.useState([]);
+    const [progress, setProgress] = React.useState(false);
+
+    React.useEffect(() => {
+        setProgress(true);
+        getUsers().then((users) => { setUsers(users); console.log("Got users"); });
+
+    }, []);
+
+    return <>
+    <ul>
+       
+            <NavLink to="/" className="list" activeClassName="active" exact>HOME</NavLink>
+            <NavLink to="/add" className="list" activeClassName="active" exact>ADD</NavLink>
+            <NavLink to="/update" className="list" activeClassName="active" exact>UPDATE</NavLink>
+            <NavLink to="/delete" className="list" activeClassName="active" exact>DELETE</NavLink>
+      
+       
+    </ul>
+    <Switch>
+      
+        <Route path="/add" component={Add} />
+        <Route path="/update" component={Update} />
+        <Route path="/delete" component={Delete} />
+      
+    </Switch>
+
+    <table className="table">
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> Name </th>
+                <td> DOB</td>
+                <td> Contacts </td>
+                <th> City </th>
+                <th> State </th> 
+
+            </tr>
+        </thead>
+        <tbody>
+            {
+                users.map(users => <tr><td>{users.id}</td><td>{users.name[0]} {users.name[1]}</td><td>{users.dob}</td><td>{users.contact[0]},{users.contact[1]}</td><td>{users.city}</td><td>{users.state}</td></tr>)
+            }
+        </tbody>
+    </table>
+    
+    </>    
+}
+
+
+export default App;
