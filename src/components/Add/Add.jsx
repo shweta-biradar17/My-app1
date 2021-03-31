@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-import {createUser} from './App.js'
+import {createUser} from '../../services/users'
 import { useDispatch } from "react-redux";
-import { addUsers } from "./redux/action";
+import { addUsers } from "../../redux/action";
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, TextField} from '@material-ui/core';
 import Button from '@material-ui/core/Button';

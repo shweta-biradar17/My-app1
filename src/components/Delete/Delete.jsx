@@ -1,5 +1,5 @@
 import React from 'react';
-import {deleteUser} from '../../App.js'
+import {deleteUser} from '../../services/users'
 import { useDispatch } from "react-redux";
 import { deleteUsers } from "../../redux/action";
 import { makeStyles } from '@material-ui/core/styles';

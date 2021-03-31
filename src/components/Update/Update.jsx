@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import {updateUser} from '../../App.js'
+import {updateUser} from '../../services/users';
 import { updateUsers } from "../../redux/action";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';

@@ -1,9 +1,9 @@
 import React from 'react'
 import fire from 'firebase';
 import Home from './components/Home';
-import Add from './Add';
-import Update from './components/Update/Update';
-import Delete from './components/Delete/Delete';
+import Add from './components/Add';
+import Update from './components/Update';
+import Delete from './components/Delete';
 import {Switch,Route,NavLink, Link} from 'react-router-dom';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
