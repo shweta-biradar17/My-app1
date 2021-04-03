@@ -1,11 +1,12 @@
 import React from "react";
 import fire from "firebase";
-import Dash1 from "../Dash1";
+import Home from "./Home";
 import { Redirect } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function PrivateRoute() {
   const [loginStatus, setLoginStatus] = React.useState(false);
-  const [progress, setProgress] = React.useState(false);
+  const [progress, setProgress] = React.useState(true);
 
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((user) => {
@@ -18,13 +19,13 @@ export default function PrivateRoute() {
     });
   }, []);
 
-
   return progress ? (
-    "Loading...."
-  ) : (loginStatus ? (
-      <Dash1/>
-
+    <div className="loader">
+      <CircularProgress />
+    </div>
+  ) : loginStatus ? (
+    <Home />
   ) : (
     <Redirect to="/login" />
-  ));
+  );
 }

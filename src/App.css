@@ -2,7 +2,7 @@ html {
   height: 100%;
 }
 
-body { 
+body {
   font-family: sans-serif;
 }
 
@@ -15,11 +15,11 @@ body {
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.952);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
 
-.input-box-del{
+.input-box-del {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -28,9 +28,8 @@ body {
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 0.952);
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-
 }
 
 .input-box input:focus ~ label,
@@ -41,10 +40,9 @@ body {
   font-size: 12px;
 }
 
-.input-box{
+.input-box {
   color: rgb(204, 196, 196);
 }
-
 
 ul {
   list-style-type: none;
@@ -74,21 +72,15 @@ li a:hover:not(.active) {
   background-color: #01181a;
 }
 
-h1{
-  color:white;
-  margin: 30px;
-}
-
-.change{
+.change {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   padding: 10px 0;
   font-size: 20px;
   color: rgb(41, 53, 160);
   pointer-events: none;
-  transition: .5s;
-
+  transition: 0.5s;
 }
 
 .split {
@@ -117,17 +109,9 @@ h1{
   text-align: center;
 }
 
-input[type=email], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-#btn1, #btn2 {
-  background-color:#3f51b5;
+#btn1,
+#btn2 {
+  background-color: #3f51b5;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -149,8 +133,7 @@ input[type=email], input[type=password] {
   padding: 10px 18px;
   background-color: #f44336;
 }
-
-.imgcontainer {
+#f44336 .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 0;
 }
@@ -171,10 +154,25 @@ span.psw {
 
 @media screen and (max-width: 300px) {
   span.psw {
-     display: block;
-     float: none;
+    display: block;
+    float: none;
   }
   .cancelbtn {
-     width: 100%;
+    width: 100%;
   }
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  text-decoration: none;
 }
