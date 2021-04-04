@@ -1,6 +1,6 @@
 import React from "react";
-import { createUser } from "../../services/users";
 import { useDispatch } from "react-redux";
+import { createUser } from "../../services/users";
 import { addUsers } from "../../redux/action";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, TextField } from "@material-ui/core";
@@ -40,10 +40,8 @@ const Add = () => {
       state: state,
     };
 
-    createUser(user).then((result) => {
-      console.log(result);
-      dispatcher(addUsers({ ...user }));
-    });
+    createUser(user).then((result) => console.log(result));
+    dispatcher(addUsers({ ...user }));
   }
 
   return (

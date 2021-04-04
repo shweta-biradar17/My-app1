@@ -2,18 +2,8 @@ import React from "react";
 import { deleteUser } from "../../services/users";
 import { useDispatch } from "react-redux";
 import { deleteUsers } from "../../redux/action";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
 
 const Delete = () => {
   const [id, setId] = React.useState("");

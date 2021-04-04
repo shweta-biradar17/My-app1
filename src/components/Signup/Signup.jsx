@@ -4,8 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -13,6 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,13 +36,18 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
   const [cpassword, setCpassword] = React.useState("");
+  const [progress, setProgress] = React.useState(false);
   const classes = useStyles();
 
   const signup = () => {
     if (password != cpassword) {
       alert("Password does not match");
     } else {
+      setProgress(false);
+      clearError();
       fire
         .auth()
         .createUserWithEmailAndPassword(email, password)
@@ -52,11 +56,33 @@ export default function Register() {
           // ...
         })
         .catch((error) => {
-          console.log("Failed to register user");
-          // ..
+          console.log(error);
+          switch (error.code) {
+            case "auth/email-already-in-use":
+            case "auth/invalid-email":
+              setEmailError(error.message);
+              break;
+            case "auth/weak-password":
+              setPasswordError(error.message);
+              break;
+            default:
+          }
         });
     }
   };
+
+  const clearError = () => {
+    setEmailError("");
+    setPasswordError("");
+  };
+
+  if (progress) {
+    return (
+      <div className="loader">
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -74,27 +100,25 @@ export default function Register() {
             margin="normal"
             required
             fullWidth
-            id="email"
+            type="email"
             label="Email Address"
-            name="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             autoComplete="email"
             autoFocus
           />
+          <p>{emailError}</p>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="password"
             label="Password"
             type="password"
-            id="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
-
+          <p>{passwordError}</p>
           <TextField
             variant="outlined"
             margin="normal"

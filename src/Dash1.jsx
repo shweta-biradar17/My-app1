@@ -4,7 +4,7 @@ import fire from "firebase";
 import Add from "./components/Add";
 import Update from "./components/Update";
 import Delete from "./components/Delete";
-import { Switch, Route, NavLink, Link } from "react-router-dom";
+import { Switch, Route, NavLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import { getUsers } from "./services/users";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchUsers } from "./redux/action";
 
 const useStyles = makeStyles((theme) => ({

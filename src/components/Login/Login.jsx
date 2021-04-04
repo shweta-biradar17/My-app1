@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -36,10 +37,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+  const [progress, setProgress] = React.useState(false);
   const history = useHistory();
   const classes = useStyles();
 
   const login = () => {
+    setProgress(false);
+    clearError();
     fire
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -47,16 +53,47 @@ export default function Login() {
         console.log(user);
         history.push("/");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        switch (error.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setEmailError(error.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(error.message);
+            break;
+          default:
+        }
+      });
   };
 
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
+        clearInput();
         history.push("/");
       }
     });
   }, [history]);
+
+  const clearError = () => {
+    setEmailError("");
+    setPasswordError("");
+  };
+  const clearInput = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  if (progress) {
+    return (
+      <div className="loader">
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -82,6 +119,7 @@ export default function Login() {
             autoComplete="email"
             autoFocus
           />
+          <p>{emailError}</p>
           <TextField
             variant="outlined"
             margin="normal"
@@ -95,7 +133,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
           />
-
+          <p>{passwordError}</p>
           <Button
             fullWidth
             variant="contained"
